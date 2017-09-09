@@ -1,0 +1,2 @@
+Na linha 3 será impresso 10 e 120.50, pois são valores atribuidos a essas variáveis
+Já na linha 8 será impresso 10 e 120.50 novamente pois a chamada da função não alterará os valores da estrutura, pois ela é pasada como valor e não referência
