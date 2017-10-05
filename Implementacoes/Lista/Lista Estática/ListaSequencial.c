@@ -5,7 +5,7 @@
 //Definição do tipo lista
 struct lista{
     int qtd;
-    struct aluno dados[MAX];
+    int dados[MAX];
 };
 
 Lista* cria_lista(){
@@ -20,37 +20,36 @@ void libera_lista(Lista* li){
     free(li);
 }
 
-int consulta_lista_pos(Lista* li, int pos, struct aluno *al){
+int consulta_lista_pos(Lista* li, int pos, int *dado){
     if(li == NULL || pos <= 0 ||  pos > li->qtd)
         return 0;
-    *al = li->dados[pos-1];
+    *dado = li->dados[pos-1];
     return 1;
 }
 
-int consulta_lista_mat(Lista* li, int mat, struct aluno *al){
+int consulta_lista_(Lista* li, int mat, int dado){
     if(li == NULL)
         return 0;
     int i = 0;
-    while(i<li->qtd && li->dados[i].matricula != mat)
+    while(i<li->qtd && li->dados[i] != dado)
         i++;
     if(i == li->qtd)//elemento nao encontrado
         return 0;
 
-    *al = li->dados[i];
     return 1;
 }
 
-int insere_lista_final(Lista* li, struct aluno al){
+int insere_lista_final(Lista* li, int dado){
     if(li == NULL)
         return 0;
     if(li->qtd == MAX)//lista cheia
         return 0;
-    li->dados[li->qtd] = al;
+    li->dados[li->qtd] = dado;
     li->qtd++;
     return 1;
 }
 
-int insere_lista_inicio(Lista* li, struct aluno al){
+int insere_lista_inicio(Lista* li, int dado){
     if(li == NULL)
         return 0;
     if(li->qtd == MAX)//lista cheia
@@ -58,18 +57,18 @@ int insere_lista_inicio(Lista* li, struct aluno al){
     int i;
     for(i=li->qtd-1; i>=0; i--)
         li->dados[i+1] = li->dados[i];
-    li->dados[0] = al;
+    li->dados[0] = dado;
     li->qtd++;
     return 1;
 }
 
-int insere_lista_ordenada(Lista* li, struct aluno al){
+int insere_lista_ordenada(Lista* li, int dado){
     if(li == NULL)
         return 0;
     if(li->qtd == MAX)//lista cheia
         return 0;
     int k,i = 0;
-    while(i<li->qtd && li->dados[i].matricula < al.matricula)
+    while(i<li->qtd && li->dados[i] < dado)
         i++;
 
     for(k=li->qtd-1; k >= i; k--)
@@ -80,13 +79,13 @@ int insere_lista_ordenada(Lista* li, struct aluno al){
     return 1;
 }
 
-int remove_lista(Lista* li, int mat){
+int remove_lista(Lista* li, int dado){
     if(li == NULL)
         return 0;
     if(li->qtd == 0)
         return 0;
     int k,i = 0;
-    while(i<li->qtd && li->dados[i].matricula != mat)
+    while(i<li->qtd && li->dados[i] != dado)
         i++;
     if(i == li->qtd)//elemento nao encontrado
         return 0;
@@ -97,13 +96,13 @@ int remove_lista(Lista* li, int mat){
     return 1;
 }
 
-int remove_lista_otimizado(Lista* li, int mat){
+int remove_lista_otimizado(Lista* li, int dado){
     if(li == NULL)
         return 0;
     if(li->qtd == 0)
         return 0;
     int i = 0;
-    while(i<li->qtd && li->dados[i].matricula != mat)
+    while(i<li->qtd && li->dados[i] != mat)
         i++;
     if(i == li->qtd)//elemento nao encontrado
         return 0;
@@ -158,11 +157,6 @@ void imprime_lista(Lista* li){
         return;
     int i;
     for(i=0; i< li->qtd; i++){
-        printf("Matricula: %d\n",li->dados[i].matricula);
-        printf("Nome: %s\n",li->dados[i].nome);
-        printf("Notas: %f %f %f\n",li->dados[i].n1,
-                                   li->dados[i].n2,
-                                   li->dados[i].n3);
-        printf("-------------------------------\n");
+        printf("%d->\n",li->dados[i]);
     }
 }
