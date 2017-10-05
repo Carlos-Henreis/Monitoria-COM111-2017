@@ -1,5 +1,7 @@
 ### Listas Ligadas como Estrutura de Dados (linked list)
 
+Uma Lista Encadeada (ou linked List) é um conjunto linear de estruturas auto-referenciadas, chamadas nós, concatenadas por links (ligações ou encadeamentos) de ponteiros.
+
 | Lista      | Vetor    |
 | :------------- | :--------- |
 | Número indefinido de elementos. | Número predeterminado de elementos. |
