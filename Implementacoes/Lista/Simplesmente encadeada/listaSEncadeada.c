@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ListaSequencial.h" //inclui os Protótipos
+#include "listaSEncadeada.h" //inclui os Protótipos
 
 struct no {
 	int dado;
@@ -13,8 +13,8 @@ struct lista{
 };
 
 lista *create() {
-	Lista *li;
-    li = (Lista*) malloc(sizeof(struct lista));
+	lista *li;
+    li = (lista*) malloc(sizeof(struct lista));
     if(li != NULL){
         li->qtd = 0;
         li->inicio = NULL;
@@ -59,7 +59,7 @@ int insert (lista *li, int d) { // insercao ordenada
 	return TRUE;
 }
 
-int remove (lista *li, int d) {
+int removeL (lista *li, int d) {
 	struct no *ant = NULL,
 	*atual = li->inicio;
 	while (atual && atual->dado != d){
@@ -68,8 +68,8 @@ int remove (lista *li, int d) {
 	}
 	if (!atual) 
 		return FALSE;
-	if (atual == l->inicio)
-		l->inicio = atual->prox;
+	if (atual == li->inicio)
+		li->inicio = atual->prox;
 	else
 		ant->prox = atual->prox;
 	free(atual);
@@ -80,9 +80,11 @@ int remove (lista *li, int d) {
 void imprime (lista *li) {
 	struct no *aux = li->inicio;
 	while (aux != NULL) {
-		printf("\n %d ", aux->dado);
+		printf("%d->", aux->dado);
 		aux = aux->prox;
 	}
+	printf("\n");
+	return;
 }
 
 int qtdElements (lista *li) {
