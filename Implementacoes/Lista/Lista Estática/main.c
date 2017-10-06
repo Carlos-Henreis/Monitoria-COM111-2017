@@ -3,9 +3,9 @@
 #include "ListaSequencial.h"
 int main(){
    
-    Lista* li = cria_lista();
+    Lista *li = cria_lista(); 
     int i;
-    for(i=4; i < 0; i--)
+    for(i=4; i > 0; i--)
         insere_lista_ordenada(li, i);
 
     imprime_lista(li);

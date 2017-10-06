@@ -74,7 +74,7 @@ int insere_lista_ordenada(Lista* li, int dado){
     for(k=li->qtd-1; k >= i; k--)
         li->dados[k+1] = li->dados[k];
 
-    li->dados[i] = al;
+    li->dados[i] = dado;
     li->qtd++;
     return 1;
 }
@@ -102,7 +102,7 @@ int remove_lista_otimizado(Lista* li, int dado){
     if(li->qtd == 0)
         return 0;
     int i = 0;
-    while(i<li->qtd && li->dados[i] != mat)
+    while(i<li->qtd && li->dados[i] != dado)
         i++;
     if(i == li->qtd)//elemento nao encontrado
         return 0;
@@ -156,7 +156,9 @@ void imprime_lista(Lista* li){
     if(li == NULL)
         return;
     int i;
+    printf("%d\n", li->qtd);
     for(i=0; i< li->qtd; i++){
-        printf("%d->\n",li->dados[i]);
+        printf("%d->",li->dados[i]);
     }
+    printf("\n");
 }
