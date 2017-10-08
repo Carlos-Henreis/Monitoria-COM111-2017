@@ -38,7 +38,7 @@ c) Considere uma lista de inteiros com os seguintes valores de dados: 5,8,12,85.
 
 
 
-##Resposta exercio 1:
+## Resposta exercio 1:
 
 a.  Neste caso é necessário passar a lista l por referencia, pois pode-se haver uma alteração em seu conteúdo como o seu começo (ponteiro com aṕonta para outro no que se tornou inicio da lista).
 
@@ -46,18 +46,18 @@ b.  Isso não é possivel pois a lista l foi passada por referencia e não por v
 
 c. 
 
-1. `incluiLista (&l, 5)`
+1. `incluiLista (&l, 5);`
    * aux = l->com == NULL
    * ant == NULL
    1. Laço-> NEm entra aux == NULL
-   * logo aux->dado e ant->dado não existem
+      * logo aux->dado e ant->dado não existem
 2. `incluiLista (&l, 8)`
    * aux = l->com
    * ant == NULL
    1. Laço
       * ant == aux
       * aux == NULL
-         * ant->dado == 5 e aux->dado não existe
+      	* ant->dado == 5 e aux->dado não existe
    * Sai do laco 
 3. `incluiLista (&l, 12)`
    * aux = l->com
