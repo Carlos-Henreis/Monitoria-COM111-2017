@@ -41,21 +41,21 @@ int insert(lista *li, struct produto p) { // insercao ordenada
 	
 	if (li->com == NULL) {
 		li->com = aux;
-		return TRUE;
+	}else{
+		if (p.codigo < li->com->p.codigo) {
+			aux->prox = li->com;
+			li->com = aux;
+		}else{
+			ant = atual = li->com;
+			
+			while (atual != NULL && p.codigo >= atual->p.codigo) {
+				ant = atual;
+				atual = atual->prox;
+			}
+			aux->prox = ant->prox;
+			ant->prox = aux;
+		}
 	}
-	if (p.codigo < li->com->p.codigo) {
-		aux->prox = li->com;
-		li->com = aux;
-		return TRUE;
-	}
-	ant = atual = li->com;
-	
-	while (atual != NULL && p.codigo >= atual->p.codigo) {
-		ant = atual;
-		atual = atual->prox;
-	}
-	aux->prox = ant->prox;
-	ant->prox = aux;
 	li->qtd++;
 	return TRUE;
 }
@@ -79,8 +79,10 @@ int removeL(lista *li, int codigo) {
 }
 
 void imprime_lista(lista* li){
-    if(li == NULL)
+    if(isEmpty(li)){
+        printf("não existem elementos na lista\n");
         return;
+    }
     tno* no = li->com;
     while(no != NULL){
         printf("codigo: %d\n",no->p.codigo);
@@ -90,6 +92,7 @@ void imprime_lista(lista* li){
 
         no = no->prox;
     }
+    printf("\n\n\n\n\n");
 }
 
 int consulta_lista_cod(lista* li, int codigo, struct produto *p){
@@ -108,16 +111,20 @@ int consulta_lista_cod(lista* li, int codigo, struct produto *p){
 }
 
 void imprimeProd(lista *li, int codigo){
-    struct produto *p = NULL;
+    struct produto *p = (struct produto *) malloc (sizeof(struct produto));
     if (!consulta_lista_cod(li, codigo, p)){
     	printf("Nenhum produto como código passado\n");
     	return;
     }
 
-    printf("codigo: %d\n",p->codigo);
-    printf("periculosidade: %c\n",p->periculosidade);
-    printf("preco: %f\n",p->preco);
-    printf("-------------------------------\n");
+    if (p){
+    	printf("codigo: %d\n", p->codigo);
+	    printf("periculosidade: %c\n",p->periculosidade);
+	    printf("preco: %f\n",p->preco);
+	    printf("-------------------------------\n\n\n\n");
+    }
+
+    
 
     return;
 }
