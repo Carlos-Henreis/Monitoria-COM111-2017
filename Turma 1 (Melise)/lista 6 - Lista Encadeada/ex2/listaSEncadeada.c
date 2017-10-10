@@ -3,53 +3,54 @@
 #include "listaSEncadeada.h" //inclui os Protótipos
 
 struct no {
-	produto dado;
+	struct produto p;
 	struct no *prox;
 };
 
+
 struct lista{
-	struct no *inicio;
+	tno *com;
 	int qtd;
 };
 
 lista *create() {
 	lista *li;
-    li = (lista*) malloc(sizeof(struct lista));
+    li = (lista*) malloc(sizeof(lista));
     if(li != NULL){
         li->qtd = 0;
-        li->inicio = NULL;
+        li->com = NULL;
     }
     return li;
 }
 
 
 int isEmpty(lista *li) {
-	if (li->inicio == NULL && li->qtd == 0)
+	if (li->com == NULL && li->qtd == 0)
 		return TRUE;
 	return FALSE;
 }
 
-int insert (lista *li, int d) { // insercao ordenada
-	struct no *ant, *atual, *aux;
-	aux = (struct no *)calloc(1, sizeof(struct no));
+int insert(lista *li, struct produto p) { // insercao ordenada
+	tno *ant, *atual, *aux;
+	aux = (tno*) malloc(sizeof(tno));
 	if (!aux) 
 		return FALSE;
 	
-	aux->dado = d;
+	aux->p = p;
 	aux->prox = NULL;
 	
-	if (li->inicio == NULL) {
-		li->inicio = aux;
+	if (li->com == NULL) {
+		li->com = aux;
 		return TRUE;
 	}
-	if (d < li->inicio->dado) {
-		aux->prox = li->inicio;
-		li->inicio = aux;
+	if (p.codigo < li->com->p.codigo) {
+		aux->prox = li->com;
+		li->com = aux;
 		return TRUE;
 	}
-	ant = atual = li->inicio;
+	ant = atual = li->com;
 	
-	while (atual != NULL && d >= atual->dado) {
+	while (atual != NULL && p.codigo >= atual->p.codigo) {
 		ant = atual;
 		atual = atual->prox;
 	}
@@ -59,17 +60,17 @@ int insert (lista *li, int d) { // insercao ordenada
 	return TRUE;
 }
 
-int removeL (lista *li, int d) {
-	struct no *ant = NULL,
-	*atual = li->inicio;
-	while (atual && atual->dado != d){
+int removeL(lista *li, int codigo) {
+	tno *ant = NULL,
+	*atual = li->com;
+	while ((atual) && (atual->p.codigo != codigo)){
 		ant = atual;
 		atual = atual->prox;
 	}
 	if (!atual) 
 		return FALSE;
-	if (atual == li->inicio)
-		li->inicio = atual->prox;
+	if (atual == li->com)
+		li->com = atual->prox;
 	else
 		ant->prox = atual->prox;
 	free(atual);
@@ -77,18 +78,61 @@ int removeL (lista *li, int d) {
 	return TRUE;
 }
 
-void imprime (lista *li) {
-	struct no *aux = li->inicio;
-	while (aux != NULL) {
-		printf("%d->", aux->dado);
-		aux = aux->prox;
-	}
-	printf("\n");
-	return;
+void imprime_lista(lista* li){
+    if(li == NULL)
+        return;
+    tno* no = li->com;
+    while(no != NULL){
+        printf("codigo: %d\n",no->p.codigo);
+        printf("periculosidade: %c\n",no->p.periculosidade);
+        printf("preco: %f\n",no->p.preco);
+        printf("-------------------------------\n");
+
+        no = no->prox;
+    }
 }
 
-int qtdElements (lista *li) {
+int consulta_lista_cod(lista* li, int codigo, struct produto *p){
+    if(li == NULL)
+        return FALSE;
+    tno *no = li->com;
+    while(no != NULL && no->p.codigo != codigo){
+        no = no->prox;
+    }
+    if(no == NULL)
+        return FALSE;
+    else{
+        *p = no->p;
+        return TRUE;
+    }
+}
+
+void imprimeProd(lista *li, int codigo){
+    struct produto *p = NULL;
+    if (!consulta_lista_cod(li, codigo, p)){
+    	printf("Nenhum produto como código passado\n");
+    	return;
+    }
+
+    printf("codigo: %d\n",p->codigo);
+    printf("periculosidade: %c\n",p->periculosidade);
+    printf("preco: %f\n",p->preco);
+    printf("-------------------------------\n");
+
+    return;
+}
+
+int qtdElementsP (lista *li, char periculosidade) {
+	int qtd = 0;
 	if (!li)
 		return -1;
-	return li->qtd;
+	tno* no = li->com;
+    while(no != NULL){
+    	if (no->p.periculosidade == periculosidade) {
+    		qtd++;
+    	}
+        no = no->prox;
+    }
+	return qtd;
 }
+

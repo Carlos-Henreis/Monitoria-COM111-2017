@@ -1,24 +1,33 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "listaSEncadeada.h"
 
 
 int main(void) {
+	struct produto p[4] = {{3,'S',9.5},
+                         	   {1,'R',7.5},
+                         	   {4,'S',9.7},
+                         	   {2,'S',5.7}};
+
 	lista *L = create();
 	if (isEmpty(L))
 		printf("Lista Vazia\n");
 	else
 		printf("Lista com Dados\n");
+
+    int i;
+    for(i=0; i < 4; i++)
+        insert(L,p[i]);
 	
-	insert(L,12);
-	insert(L,320);
-	insert(L,197);
-	insert(L,26);
+	imprime_lista(L);
 	
-	imprime(L);
-	
-	removeL(L,320);
-	
-	imprime(L);
+	printf("\n\n\n\n quantidde de periculosidade S: %d\n",qtdElementsP(L, 'S'));
+	imprimeProd(L, 12);
+	imprimeProd(L, 3);
+	 for(i=0; i < 4; i++){
+        removeL(L, p[i].codigo);
+        imprime_lista(L);
+    }
 	
 	return 0;
 }
