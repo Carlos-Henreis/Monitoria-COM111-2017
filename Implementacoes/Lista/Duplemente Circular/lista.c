@@ -5,6 +5,7 @@
 struct no {
 	int dado;
 	struct no *prox;
+	struct no *ant;
 };
 
 struct listaCDE{
@@ -13,7 +14,7 @@ struct listaCDE{
 };
 
 
-listaCDE *create() {
+listaCDE *cria_lista() {
 	listaCDE *q = (listaCDE*) malloc (sizeof (listaCDE));
 	q->inicio=NULL;
 	q->fim = NULL;
@@ -34,7 +35,7 @@ no_t *cria_no(int dado) {
 }
 
 int insert(listaCDE *l, int d) {
-	no_t *no = cria_no(dado);
+	no_t *no = cria_no(d);
 	if (!no) 
 		return FALSE;
 
@@ -63,14 +64,20 @@ void imprime(listaCDE *q) {
 	printf("%d\n", aux->dado);
 }
 
-void imprimeRec (listaCDE *q) {
-	printf("%d-> ", q->inicio->dado);
-	if (isEmpty(q)) 
+void imprimeRecAux (no_t *inicio, no_t *fim) {
+
+	printf("%d-> ", inicio->dado);
+	if (inicio == fim)
 		return;
-	if (q->inicio != q->fim)
-		return;
-	imprimeRec (q->inicio->prox);
-	printf("%d\n", q->fim->dado);
+	imprimeRecAux (inicio->prox, fim);
+}
+
+void imprimeRec (listaCDE *l) {
+	no_t *inicio, *fim;
+	inicio = l->inicio;
+	fim = l->fim;
+	imprimeRecAux (inicio, fim);
+	return;
 }
 
 

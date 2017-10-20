@@ -5,14 +5,13 @@ int main(void) {
 	listaCDE *l;
 	int d;
 	l = cria_lista();
-	insere(l,12);
-	insere(l,12);
-	insere(l,320);
-	insere(l,413);
-	insere(l,197);
-	insere(l,26);
+	insert(l,12);
+	insert(l,320);
+	insert(l,413);
+	insert(l,197);
+	insert(l,26);
 	imprimeRec(l);
-	if (retira(&l, &d)){
+	if (remover(l, &d)){
 		printf("dado removido %d\n", d);
 	}
 
