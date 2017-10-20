@@ -1,4 +1,4 @@
-#Teoria
+# Teoria
 
 * É uma variação de lista encadeada, contendo um ponteiro para o nó anterior, além do próximo;
 
