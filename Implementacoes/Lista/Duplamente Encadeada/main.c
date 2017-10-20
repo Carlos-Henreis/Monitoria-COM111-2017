@@ -1,3 +1,5 @@
+#include "lista.h"
+
 int main (void) {
 	listaDE *f;
 	f = create();

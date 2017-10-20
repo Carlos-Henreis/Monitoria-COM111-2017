@@ -6,7 +6,7 @@ typedef struct no_t no_t;
 typedef struct listaDE listaDE;
 
 listaDE *create();
-int isEmpty(listaDE q);
+int isEmpty(listaDE *q);
 int insert(listaDE *q, int d);
-int remover(listaDE *q, int d)
-void imprime(listaDE q, char modo);
+int remover(listaDE *q, int d);
+void imprime(listaDE *q);

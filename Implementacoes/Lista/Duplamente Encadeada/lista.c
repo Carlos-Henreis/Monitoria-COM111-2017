@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <stdio.h>
+#include "lista.h"
 
 struct no_t {
 	int dado;
@@ -25,8 +27,8 @@ int insert(listaDE *q, int d) {
 	no_t *no = (no_t *) malloc(sizeof(no_t));
 	if (!no) 
 		return FALSE;
-	no->dado = dado;
-	if (isEmpty(q) {
+	no->dado = d;
+	if (isEmpty(q)) {
 		no->prox = no->ant = NULL;
 		q->inicio = q->fim = no;
 		return TRUE;
@@ -47,10 +49,11 @@ void imprime(listaDE *q) {
 		printf("%d ", aux->dado);
 		aux = aux->prox;
 	}
+	printf("\n");
 }
 
-int remove(listaDE *q, int d) {
-	struct no *aux, *atual;
+int remover(listaDE *q, int d) {
+	no_t *aux, *atual;
 	if (d == q->fim->dado) {
 		aux = q->fim;
 		if (q->fim == q->inicio) {
